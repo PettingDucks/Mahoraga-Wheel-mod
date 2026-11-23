@@ -52,7 +52,7 @@ namespace MahoragaWheel
             Body pb = Tracker.PlayerBody();
             PlayerCamera pc = PlayerCamera.main;
             GameObject wv = pc != null ? pc.woundView : null;
-            if (pb == null || wv == null || !wv.activeInHierarchy) { Hide(); return; }
+            if (pb == null || wv == null || !wv.activeInHierarchy || !Gate.Allowed) { Hide(); return; }
             if (cachedView == null) cachedView = wv.GetComponentInChildren<WoundView>(true);
             WoundView view = cachedView;
             if (view == null || view.limbNameText == null) { Hide(); return; }

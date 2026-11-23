@@ -36,7 +36,19 @@ namespace MahoragaWheel
         {
             if (id == 0 || id == CurrentId) return;
             CurrentId = id;
+            loaded = false;
             Adaptation.Reset("character #" + id);
+            Gate.Refresh();
+            EnsureLoaded();
+        }
+
+        // Load this character's file once the run is known to allow adaptation. Until then nothing is
+        // loaded and nothing is saved, so a file is never overwritten with an empty state on an easy run.
+        private static bool loaded;
+        public static void EnsureLoaded()
+        {
+            if (loaded || CurrentId == 0 || !Gate.Allowed) return;
+            loaded = true;
             Load();
         }
 
@@ -44,7 +56,7 @@ namespace MahoragaWheel
 
         public static void Save()
         {
-            if (Enabled == null || !Enabled.Value || CurrentId == 0) return;
+            if (Enabled == null || !Enabled.Value || CurrentId == 0 || !loaded) return;
             try
             {
                 Directory.CreateDirectory(Dir);

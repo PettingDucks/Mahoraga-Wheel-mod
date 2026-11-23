@@ -64,7 +64,7 @@ namespace MahoragaWheel
             if (b.heartRate < 20f)
             {
                 worse = true;
-                float chance = 0.04f * r * r * Regen.StrengthValue() * dt;   // ~2%/s at the cap, almost nothing early on
+                float chance = 0.01f * r * r * Regen.StrengthValue() * dt;   // ~0.5%/s at the cap (usually 1-2 minutes), almost nothing early on
                 if (chance > 0f && Random.value < chance)
                 {
                     b.fibrillationProgress = 0f;

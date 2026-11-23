@@ -48,6 +48,7 @@ namespace MahoragaWheel
         private bool built, failed, visible = true, inputBroken, world;
         private int topLayerId;
         private GameObject root3d, canvasGO;
+        private bool gateHidden;
         private Transform tilt, spinT;
         private Camera cam;
         private RenderTexture rt;
@@ -257,6 +258,21 @@ namespace MahoragaWheel
             if (Enabled == null || !Enabled.Value) return;
             Body pb = Tracker.PlayerBody();
             if (pb == null) return;
+            // easier run: no wheel at all (see Gate)
+            if (!Gate.Allowed)
+            {
+                if (raw != null) raw.gameObject.SetActive(false);
+                if (root3d != null) root3d.SetActive(false);
+                if (canvasGO != null) canvasGO.SetActive(false);
+                gateHidden = true;
+                return;
+            }
+            if (gateHidden)
+            {
+                gateHidden = false;
+                if (!panelMode && root3d != null && world) root3d.SetActive(visible);
+                if (!panelMode && canvasGO != null) canvasGO.SetActive(visible);
+            }
             if (panelMode) { UpdatePanel(pb); return; }
 
             if (!built && !failed)

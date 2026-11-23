@@ -8,6 +8,8 @@ Made by PettingDucks.
 
 ## Features
 
+**Hard runs only:** adaptation only works on the hardest runs: **Desolate**, **Unchipped** or **Endless**, or custom settings at least that hard (loot at 0.4x or less with traps at 1.5x or more, or Unchipped or Endless switched on). On easier runs the mod stays completely off. This can be turned off in the config (`[Hard Runs Only] Enabled`). In Unchipped the health panel is disabled, so the health-menu wheel and symbols don't show there; the wheel over your head still does.
+
 **Adaptation:** whatever directly hurts you slowly teaches your body to resist it.
 - Every 3 minutes of being hurt by one kind of harm is one turn of the wheel. Damaging hits add a few bonus seconds.
 - 4 turns (12 minutes) is full adaptation: that harm does 75% less to you. It never goes above 75%.
@@ -63,6 +65,7 @@ The main settings, in `local.mahoragawheel.cfg`:
 | Sound | TurnSound | piston | Game sound played on each turn |
 | Sound | Volume | 0.5 | Wheel sound volume |
 | Saving | KeepAdaptationBetweenSessions | true | Save adaptation per character and world |
+| Hard Runs Only | Enabled | true | Only allow adaptation on Desolate, Unchipped, Endless or equally hard custom runs |
 
 There are also testing options (off by default) under **Regrow Test** and **Sound Dump**.
 

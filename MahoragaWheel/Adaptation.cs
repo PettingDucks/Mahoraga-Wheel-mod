@@ -101,6 +101,7 @@ namespace MahoragaWheel
         // Called when a hazard of this category actually hurt the player.
         public static void MarkHit(string cat, float magnitude)
         {
+            if (!Gate.Allowed) return;
             CatState hs = Get(cat);
             if (magnitude > 0f && hs.turns < MaxTurns.Value && Time.time - hs.lastBonus >= BonusCooldown.Value)
             {
@@ -112,6 +113,7 @@ namespace MahoragaWheel
 
         public static void MarkHit(string cat)
         {
+            if (!Gate.Allowed) return;
             CatState hs = Get(cat);
             hs.activeUntil = Time.time + HitWindow.Value;
             hs.lastHurt = Time.time;
@@ -122,6 +124,7 @@ namespace MahoragaWheel
         // Called every frame while the effect is ongoing (bleeding, infection, ...).
         public static void MarkOngoing(string cat)
         {
+            if (!Gate.Allowed) return;
             CatState os = Get(cat);
             os.activeUntil = Time.time + 0.5f;
             os.lastHurt = Time.time;

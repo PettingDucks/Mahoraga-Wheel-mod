@@ -28,8 +28,8 @@ namespace MahoragaWheel
         public static void Init(ConfigFile cfg)
         {
             Strength = cfg.Bind<float>("Regeneration", "Strength", 1f, "Multiplier for adaptation regeneration. 0 turns it off, 2 doubles it.");
-            ImmunityRate = cfg.Bind<float>("Immunity", "GainPerSecond", 0.03f, "Immunity points earned per second at full infection adaptation (scaled by resistance squared). Very slow on purpose.");
-            InfectionDecay = cfg.Bind<float>("Regeneration", "InfectionFightBack", 9f, "How hard a well-adapted body fights infection. The game grows infection in proportion to how much there is, so it needs a pull in proportion too. Subtracted from the infection growth speed, scaled by resistance squared (higher = stronger).");
+            ImmunityRate = cfg.Bind<float>("Immunity", "GainPerSecond", 0.025f, "Immunity points earned per second at full infection adaptation (scaled by resistance squared). Very slow on purpose.");
+            InfectionDecay = cfg.Bind<float>("Regeneration", "InfectionFightBack", 7f, "How hard a well-adapted body fights infection. The game grows infection in proportion to how much there is, so it needs a pull in proportion too. Subtracted from the infection growth speed, scaled by resistance squared (higher = stronger).");
             ImmunityCap = cfg.Bind<float>("Immunity", "Cap", 100f, "Adaptation never lifts your immunity above this.");
             RecoverPermanent = cfg.Bind<bool>("Recovery", "HealPermanentInjuries", true, "Let a well-adapted body slowly undo disfigurement and lost eyes (experimental: visuals may not refresh).");
             RegrowLimbs = cfg.Bind<bool>("Recovery", "RegrowLostLimbs", true, "A well-adapted body slowly regrows a lost arm or leg (uses the game's own reattach routine).");

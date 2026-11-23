@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace MahoragaWheel
 {
-    [BepInPlugin("local.mahoragawheel", "Mahoraga Wheel", "0.22.2")]
+    [BepInPlugin("local.mahoragawheel", "Mahoraga Wheel", "0.23.0")]
     public class Plugin : BaseUnityPlugin
     {
         internal static ManualLogSource Log;
@@ -31,7 +31,7 @@ namespace MahoragaWheel
         private void Awake()
         {
             Log = Logger;
-            Log.LogInfo("Mahoraga Wheel 0.22.2 (adaptation + reduction + regeneration + wheel + sounds) loading.");
+            Log.LogInfo("Mahoraga Wheel 0.23.0 (adaptation + reduction + regeneration + wheel + sounds) loading.");
             Adaptation.Init(Config);
             Sfx.Init(Config);
             Regen.Init(Config);
@@ -115,6 +115,7 @@ namespace MahoragaWheel
                     if (inf2 > Adaptation.InfectionVisibleAt.Value) Adaptation.MarkOngoing("Infection");
                     if (b.radiationSickness > 0.001f) Adaptation.MarkOngoing("Radiation");
                     if (b.venomTotal > 0.5f) Adaptation.MarkOngoing("Venom");
+                    if (b.septicShock > 0.5f) Adaptation.MarkOngoing("Sepsis");   // septic shock from any cause, not just septic hazards
                     if (b.internalBleeding > 0.05f) Adaptation.MarkOngoing("Bleeding");
                     for (int li = 0; li < b.limbs.Length; li++)   // living with a fracture, a dislocation or a missing limb counts too
                     {

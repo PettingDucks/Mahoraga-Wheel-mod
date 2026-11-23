@@ -105,8 +105,14 @@ namespace MahoragaWheel
                     float cut = Mathf.Min(l.bleedAmount, 0.45f * bleedPower * k * dt);
                     l.bleedAmount -= cut; bledAcc += cut;
                 }
+                // The game only counts an infection as cured (and drops its marker) when the amount goes below
+                // zero, which is what treatment does. So an infected limb is allowed to dip just under zero here;
+                // the game then cures it itself. A limb that isn't infected stops at zero.
                 if (infPower > 0f && l.infectionAmount > 0f)
-                    l.infectionAmount = Mathf.Max(0f, l.infectionAmount - 0.3f * infPower * k * dt);
+                {
+                    float after = l.infectionAmount - 0.3f * infPower * k * dt;
+                    l.infectionAmount = l.infected ? after : Mathf.Max(0f, after);
+                }
             }
 
             if (bleedPower > 0f && b.bloodVolume < 100f)

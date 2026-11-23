@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace MahoragaWheel
 {
-    [BepInPlugin("local.mahoragawheel", "Mahoraga Wheel", "0.24.2")]
+    [BepInPlugin("local.mahoragawheel", "Mahoraga Wheel", "0.24.3")]
     public class Plugin : BaseUnityPlugin
     {
         internal static ManualLogSource Log;
@@ -31,7 +31,7 @@ namespace MahoragaWheel
         private void Awake()
         {
             Log = Logger;
-            Log.LogInfo("Mahoraga Wheel 0.24.2 (adaptation + reduction + regeneration + wheel + sounds) loading.");
+            Log.LogInfo("Mahoraga Wheel 0.24.3 (adaptation + reduction + regeneration + wheel + sounds) loading.");
             Gate.Init(Config);
             Adaptation.Init(Config);
             Sfx.Init(Config);

@@ -6,8 +6,8 @@ using UnityEngine;
 
 namespace MahoragaWheel
 {
-    // Wheel sounds. The turn uses one of the game's own sounds (the piston by default); the chime, chord
-    // and reset sweep are generated in code.
+    // Wheel sounds. Every turn, full adaptation and Renewal use only one of the game's own sounds (the piston by
+    // default). The death sweep is generated in code; the chime and chord are only a backup if that sound is missing.
     internal static class Sfx
     {
         private static ConfigEntry<float> Volume;
@@ -67,10 +67,10 @@ namespace MahoragaWheel
                 AudioClip c;
                 if (gameTurn != null)
                 {
-                    // Own source: pitch applies to everything a source is playing, so the chord must not share it.
+                    // Metal only: the heavy kick is the same piston, just lower (see KickPitch). Its own source,
+                    // because pitch applies to everything an audio source is playing.
                     gameSrc.pitch = pitch;
                     gameSrc.PlayOneShot(gameTurn, vol);
-                    if (heavy && clips.TryGetValue("adapted", out c)) src.PlayOneShot(c, vol);
                 }
                 else if (clips.TryGetValue(heavy ? "adapted" : "turn", out c)) src.PlayOneShot(c, vol);
             }

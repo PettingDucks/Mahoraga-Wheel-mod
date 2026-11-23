@@ -11,7 +11,7 @@ Made by PettingDucks.
 **Adaptation:** whatever directly hurts you slowly teaches your body to resist it.
 - Every 3 minutes of being hurt by one kind of harm is one turn of the wheel. Damaging hits add a few bonus seconds.
 - 4 turns (12 minutes) is full adaptation: that harm does 75% less to you. It never goes above 75%.
-- 18 kinds of harm: impact, sharp, explosion, burn, cold, electric, energy, creature, radiation, sepsis, venom, brain, injury (broken, dislocated or missing limbs), general vitals, bleeding, infection, hunger and thirst.
+- 18 kinds of harm: impact, sharp, explosion, burn, cold, electric, energy, creature, radiation, sepsis, venom, brain (including living with brain damage), injury (broken, dislocated or missing limbs), general vitals, bleeding, infection, hunger and thirst.
 - Your best adaptation also covers 40% of everything else, so you don't have to adapt to every little thing.
 - Not adapted to: water pushing you around, and self harm.
 

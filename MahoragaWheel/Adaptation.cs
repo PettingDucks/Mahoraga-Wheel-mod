@@ -24,6 +24,7 @@ namespace MahoragaWheel
         public static ConfigEntry<float> StarveThreshold;
         public static ConfigEntry<float> ThirstThreshold;
         public static ConfigEntry<float> InfectionVisibleAt;
+        public static ConfigEntry<float> BrainDamagedBelow;
         public static ConfigEntry<float> SpillOver;
         public static ConfigEntry<float> BonusBase;
         public static ConfigEntry<float> BonusPerDamage;
@@ -56,6 +57,7 @@ namespace MahoragaWheel
             StarveThreshold = cfg.Bind<float>("Wheel", "StarveBelowHunger", 25f, "Hunger value below which starvation counts as hurting (guess, to be tuned).");
             ThirstThreshold = cfg.Bind<float>("Wheel", "DehydrateBelowThirst", 25f, "Thirst value below which dehydration counts as hurting (guess, to be tuned).");
             SpillOver = cfg.Bind<float>("Wheel", "GeneralResilience", 0.4f, "How much of your best adaptation also protects you against every other type, so you do not have to adapt to each one from scratch. 0 turns it off.");
+            BrainDamagedBelow = cfg.Bind<float>("Wheel", "BrainDamagedBelow", 90f, "Living with brain health below this counts as Brain exposure, the same way a broken or missing limb counts for Injury.");
             InfectionVisibleAt = cfg.Bind<float>("Wheel", "InfectionCountsAbove", 25f, "Infection only counts as hurting once a limb's infection passes this value. 25 is when the health panel starts showing it.");
             BonusBase = cfg.Bind<float>("Hit Bonus", "BaseSeconds", 2f, "Seconds of progress a damaging hit adds on top of the active window.");
             BonusPerDamage = cfg.Bind<float>("Hit Bonus", "SecondsPerDamage", 0.03f, "Extra seconds per point of damage dealt, so bigger hits count for more.");

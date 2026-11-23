@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace MahoragaWheel
 {
-    [BepInPlugin("local.mahoragawheel", "Mahoraga Wheel", "0.21.2")]
+    [BepInPlugin("local.mahoragawheel", "Mahoraga Wheel", "0.22.0")]
     public class Plugin : BaseUnityPlugin
     {
         internal static ManualLogSource Log;
@@ -31,7 +31,7 @@ namespace MahoragaWheel
         private void Awake()
         {
             Log = Logger;
-            Log.LogInfo("Mahoraga Wheel 0.21.2 (adaptation + reduction + regeneration + wheel + sounds) loading.");
+            Log.LogInfo("Mahoraga Wheel 0.22.0 (adaptation + reduction + regeneration + wheel + sounds) loading.");
             Adaptation.Init(Config);
             Sfx.Init(Config);
             Regen.Init(Config);
@@ -122,7 +122,9 @@ namespace MahoragaWheel
                         if (il != null && (il.broken || il.dislocated || il.dismembered)) { Adaptation.MarkOngoing("Injury"); break; }
                     }   // internal bleeding counts as bleeding
                     if (lastBrain < 0f) lastBrain = b.brainHealth;
-                    if (b.strokeAmount > 0.01f || lastBrain - b.brainHealth > 0.0005f) Adaptation.MarkOngoing("Brain");
+                    // a stroke, brain health dropping, or just living with real brain damage (like Injury does for limbs)
+                    if (b.strokeAmount > 0.01f || lastBrain - b.brainHealth > 0.0005f
+                        || b.brainHealth < Adaptation.BrainDamagedBelow.Value) Adaptation.MarkOngoing("Brain");
                     lastBrain = b.brainHealth;
                     if (b.hunger < Adaptation.StarveThreshold.Value) Adaptation.MarkOngoing("Hunger");
                     if (b.thirst < Adaptation.ThirstThreshold.Value) Adaptation.MarkOngoing("Thirst");

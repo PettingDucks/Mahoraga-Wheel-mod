@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace MahoragaWheel
 {
-    [BepInPlugin("local.mahoragawheel", "Mahoraga Wheel", "0.24.0")]
+    [BepInPlugin("local.mahoragawheel", "Mahoraga Wheel", "0.24.1")]
     public class Plugin : BaseUnityPlugin
     {
         internal static ManualLogSource Log;
@@ -31,7 +31,7 @@ namespace MahoragaWheel
         private void Awake()
         {
             Log = Logger;
-            Log.LogInfo("Mahoraga Wheel 0.24.0 (adaptation + reduction + regeneration + wheel + sounds) loading.");
+            Log.LogInfo("Mahoraga Wheel 0.24.1 (adaptation + reduction + regeneration + wheel + sounds) loading.");
             Gate.Init(Config);
             Adaptation.Init(Config);
             Sfx.Init(Config);
@@ -90,6 +90,7 @@ namespace MahoragaWheel
             if (!wasAlive && alive) Log.LogInfo("[PLAYER] alive again");
             wasAlive = alive;
 
+            if (!Gate.Allowed) Regen.RestoreGameSpeeds();
             if (alive && Gate.Allowed)   // on easier runs the mod stays off (see Gate)
             {
                 Persist.EnsureLoaded();

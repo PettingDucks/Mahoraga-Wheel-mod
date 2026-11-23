@@ -223,9 +223,17 @@ namespace MahoragaWheel
         {
             if (p.real != null) p.real.enabled = true;
             if (p.col != null) p.col.enabled = true;
+            Cleanup(p);
+            FinishLimb(p.limb, visualOnly);
+        }
+
+        // The temporary sprite, texture and object made for one growing piece. Sprites made with Sprite.Create
+        // are not freed with their object, so destroy it explicitly or every regrow leaks one.
+        private void Cleanup(Piece p)
+        {
+            if (p.sr != null && p.sr.sprite != null) Destroy(p.sr.sprite);
             if (p.go != null) Destroy(p.go);
             if (p.tex != null) Destroy(p.tex);
-            FinishLimb(p.limb, visualOnly);
         }
 
         private void Abort()
@@ -236,8 +244,7 @@ namespace MahoragaWheel
                 if (!job.visualOnly && job.cur.limb != null && job.cur.limb.dismembered) job.cur.limb.gameObject.SetActive(false);
                 if (job.cur.real != null) job.cur.real.enabled = true;
                 if (job.cur.col != null) job.cur.col.enabled = true;
-                if (job.cur.go != null) Destroy(job.cur.go);
-                if (job.cur.tex != null) Destroy(job.cur.tex);
+                Cleanup(job.cur);
             }
             // the test hides pieces that have not had their turn yet: show them again
             if (job != null && job.visualOnly)

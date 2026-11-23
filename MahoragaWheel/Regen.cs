@@ -45,6 +45,15 @@ namespace MahoragaWheel
         public static float BoneBonusValue() { return BoneHealBonus == null ? 0f : BoneHealBonus.Value; }
 
         // strongest damage-type regeneration power right now (for the limb readout)
+        // The game's bone and joint heal speeds are shared static values that outlive a run. Put them back to
+        // normal when the mod is off (an easier run), so a boost from an earlier hard run doesn't carry over.
+        public static void RestoreGameSpeeds()
+        {
+            if (!baseCaptured) return;
+            Limb.boneHealSpeed = baseBone;
+            Limb.dislocationHealSpeed = baseDisl;
+        }
+
         public static float HealthPower()
         {
             float best = 0f;

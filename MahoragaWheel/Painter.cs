@@ -4,7 +4,7 @@ using UnityEngine;
 namespace MahoragaWheel
 {
     // Draws the wheel into a transparent texture with plain code (no camera), used in the health panel.
-    // Depth cues so it never reads as an optical illusion:
+    // Depth cues so it's always clear which side is in front:
     //   - near parts are brighter and a little bigger (perspective), far parts darker and smaller
     //   - a per-pixel depth buffer, so near parts truly cover far parts
     //   - a dark pixel-art outline around the silhouette and wherever a near part crosses a far one
@@ -32,7 +32,7 @@ namespace MahoragaWheel
             tex.Apply(false);
         }
 
-        // Pure drawing, no Unity objects, so it can also be rendered outside the game for checking.
+        // Pure drawing with no Unity objects, so it can also be run outside the game to preview it.
         public static Color32[] PaintBuffer(int n, float tiltDeg, float frac, int turns, int maxTurns, bool pixel)
         {
             Ctx c = new Ctx();

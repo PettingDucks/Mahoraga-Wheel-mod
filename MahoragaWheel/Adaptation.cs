@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MahoragaWheel
 {
-    // Per-player adaptation state. Phase 3: clock only, no damage reduction yet.
+    // Adaptation state for the current character: progress and turns for each kind of harm.
     internal class CatState
     {
         public float progress;      // seconds of exposure toward the next turn

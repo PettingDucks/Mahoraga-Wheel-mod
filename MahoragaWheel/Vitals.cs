@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace MahoragaWheel
 {
-    // VITALS: one catch-all adaptation for the whole body, so there is no need for a separate type per condition.
+    // Vitals: one catch-all adaptation for the whole body, so there is no need for a separate type per condition.
     // Whenever any vital sign is getting worse - for any reason (cold, heat, low oxygen, a failing heart, shock,
     // sickness, trauma, pressure) - it counts as Vitals exposure and builds turns like every other type.
     // Its resistance slows every one of those declines by the same share, and at high adaptation a stopped heart
@@ -23,14 +23,14 @@ namespace MahoragaWheel
             have = true;
         }
 
-        // value went UP and up is bad
+        // value went up, and up is bad
         private static float Up(float prev, float now, float floor, float keep, ref bool worse)
         {
             if (now > prev + 0.00001f && now > floor) { worse = true; return prev + (now - prev) * keep; }
             return now;
         }
 
-        // value went DOWN and down is bad
+        // value went down, and down is bad
         private static float Down(float prev, float now, float ceiling, float keep, ref bool worse)
         {
             if (now < prev - 0.00001f && now < ceiling) { worse = true; return prev + (now - prev) * keep; }

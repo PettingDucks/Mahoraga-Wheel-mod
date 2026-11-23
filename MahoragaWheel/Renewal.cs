@@ -4,10 +4,12 @@ using UnityEngine;
 
 namespace MahoragaWheel
 {
-    // RENEWAL: the long-term goal of adapting. A slow meter fills only while you are adapted AND surviving
-    // (fed, watered, not being hurt). When it is full the body MENDS back to brand new over a stretch of time
-    // (not instantly): every value drifts toward healthy, then breaks/joints/lost limbs are fixed at the end.
-    // Mending pauses while you are hit or starving, and it eats food and water as it goes.
+    // Renewal: the long-term reward for adapting. A meter fills while you are adapted and surviving
+    // (fed, watered, not recently hit). When it is full the body heals in two phases:
+    //   1. temporary harm (wounds, bleeding, infection, blood, bones, joints) over MendSeconds.
+    //      Pauses after a hit or while starving, and spends food and water as it goes.
+    //   2. permanent damage (brain, lost limbs, eyes, hearing, disfigurement) over PermanentMinutes,
+    //      one at a time, worst first. Hits don't pause it, starving does.
     internal static class Renewal
     {
         private static ConfigEntry<bool> Enabled;
@@ -168,7 +170,7 @@ namespace MahoragaWheel
         private static bool BrainHurt(Body b) { return b.brainHealth < 99f; }
         private static bool HearingHurt(Body b) { return b.hearingLoss > 1f; }
         // The first piece of a lost arm or leg: it is gone but the piece above it is not.
-        // A whole lost arm (upper arm, forearm, hand) counts as ONE item; Regrow grows its pieces in order.
+        // A whole lost arm (upper arm, forearm, hand) counts as one item; Regrow grows its pieces in order.
         private static bool IsLostTop(Limb l)
         {
             if (l == null || !l.dismembered || l.prostheticInfo.hasProsthetic) return false;
@@ -221,7 +223,7 @@ namespace MahoragaWheel
             }
             State = "Restoring";   // short: the health menu label is narrow (the item is in the log)
 
-            // a limb is regrowing piece by piece: wait for it (its pieces come back one at a time, shoulder to hand)
+            // a limb is regrowing: wait for it (its pieces come back one at a time, shoulder to hand)
             if (limbGrowing)
             {
                 if (Regrow.Busy)

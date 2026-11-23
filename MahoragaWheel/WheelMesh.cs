@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MahoragaWheel
 {
-    // The wheel as ONE smooth mesh (torus ring, eight handles, ball tips, hub), lit on the CPU each frame
+    // The wheel as one smooth mesh (torus ring, eight handles, ball tips, hub), lit on the CPU each frame
     // with diffuse + a soft metallic highlight, and drawn back to front. The game's 2D renderer only offers
     // unlit, depth-less shaders, so the lighting and the depth ordering are done here.
     internal class WheelMesh
@@ -143,7 +143,7 @@ namespace MahoragaWheel
                 float d = Mathf.Max(0f, Vector3.Dot(nw, Light));
                 float s = Mathf.Max(0f, Vector3.Dot(nw, Half));
                 float s2 = s * s, s4 = s2 * s2, s8 = s4 * s4, s16 = s8 * s8, s32 = s16 * s16;
-                float spec = s32 * 0.30f;                 // soft highlight, not a glow
+                float spec = s32 * 0.30f;                 // soft highlight
                 float sh = 0.36f + 0.64f * d;
                 Color c = B[i];
                 outCols[i] = new Color32(

@@ -22,7 +22,7 @@ namespace MahoragaWheel
         public static void Init(ConfigFile cfg)
         {
             Enabled = cfg.Bind<bool>("Saving", "KeepAdaptationBetweenSessions", true, "Remember each character's adaptation, immunity and renewal when you quit, separately per character/world. Wiped when that character dies.");
-            // the old single shared slot (from before per-character saving) is retired, not deleted
+            // an old shared save file, if one exists, is renamed to .old rather than deleted
             try
             {
                 string old = Path.Combine(Paths.ConfigPath, "local.mahoragawheel.state");

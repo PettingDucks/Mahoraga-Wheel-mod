@@ -132,7 +132,7 @@ namespace MahoragaWheel
                 {
                     r.pips[p].gameObject.SetActive(p < max);
                     if (p < cs.turns) r.pips[p].color = GoldC;
-                    else if (p == cs.turns) r.pips[p].color = Color.Lerp(DimC, GoldC, frac * 0.6f);   // the next pip warms up as progress builds, no glow
+                    else if (p == cs.turns) r.pips[p].color = Color.Lerp(DimC, GoldC, frac * 0.6f);   // the next pip fills in as progress builds
                     else r.pips[p].color = DimC;
                 }
                 n++;

@@ -11,8 +11,8 @@ namespace MahoragaWheel
         // Category of the hazard currently executing (null when none).
         public static string CurrentCat;
 
-        // The health panel picks its infection arrow from the sign of GetInfectionSpeed(). Adaptation makes
-        // infection fall while that speed stays positive, so the arrow kept pointing up. While the panel is
+        // The health panel picks its infection arrow from the sign of GetInfectionSpeed(). Adaptation can make
+        // infection fall while that speed is still positive, which would show the wrong arrow. While the panel is
         // drawing, report a falling infection as a negative speed (display only, gameplay is untouched).
         public static bool InPanel;
         private static System.Collections.Generic.Dictionary<Limb, float> infPrev = new System.Collections.Generic.Dictionary<Limb, float>();
@@ -108,7 +108,7 @@ namespace MahoragaWheel
             ok += Try(h, typeof(Limb), "get_MuscleHealRate", null, "HealPost", ref fail);
             ok += Try(h, typeof(WoundView), "UpdateView", "PanelPre", "PanelPost", ref fail);
             ok += Try(h, typeof(WoundView), "SetCharDetails", null, "CharPost", ref fail);
-            ok += Try(h, typeof(Body), "HandlePeriodicChecks", null, "ImmunityPost", ref fail);   // one small postfix only: stacking several patches on this big method failed to compile
+            ok += Try(h, typeof(Body), "HandlePeriodicChecks", null, "ImmunityPost", ref fail);   // keep this to one small postfix: several patches on this big method don't compile
             ok += Try(h, typeof(Body), "HandleBody", "BrainPre", "BrainPost", ref fail);
             ok += Try(h, typeof(Body), "HandleCirculation", "BrainPre", "BrainPost", ref fail);
             ok += Try(h, typeof(Body), "Disfigure", "BodyGuard", null, ref fail);

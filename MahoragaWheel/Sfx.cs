@@ -6,7 +6,8 @@ using UnityEngine;
 
 namespace MahoragaWheel
 {
-    // Procedural sounds, generated in code (no audio files needed).
+    // Wheel sounds. The turn uses one of the game's own sounds (the piston by default); the chime, chord
+    // and reset sweep are generated in code.
     internal static class Sfx
     {
         private static ConfigEntry<float> Volume;

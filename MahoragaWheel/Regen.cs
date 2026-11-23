@@ -149,7 +149,7 @@ namespace MahoragaWheel
                 }
             }
 
-            // lost limbs regrow, very slowly, using the game's own reattach routine
+            // lost limbs regrow very slowly; Regrow grows them back piece by piece
             if (RegrowLimbs.Value)
             {
                 bool lost = false;

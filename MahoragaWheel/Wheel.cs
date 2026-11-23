@@ -15,7 +15,8 @@ namespace MahoragaWheel
         public int index;   // rim segment or handle number
     }
 
-    // A small 3D wheel (ring, 8 handles, hub) rendered by its own camera into a texture and shown on the HUD.
+    // The wheel. One instance floats over the player's head in the world (a 3D mesh drawn by the game's camera);
+    // a second one (panelMode) is the flat pixel copy shown above the figure in the health panel.
     internal class WheelUI : MonoBehaviour
     {
         private ConfigEntry<bool> Enabled;
@@ -313,7 +314,7 @@ namespace MahoragaWheel
             float ayNow = (vy - prevVy) / dtc;
             prevVx = vx; prevVy = vy;
             accelX = Mathf.Lerp(accelX, axNow, 0.35f);
-            // walking and running no longer spin the wheel; only adaptation does (the shudder below feeds spinVel and fades quickly)
+            // only adaptation spins the wheel, never walking (the shudder below feeds spinVel and fades quickly)
             spinVel *= Mathf.Exp(-6.0f * dtc);
             spinVel = Mathf.Clamp(spinVel, -950f, 950f);
             spin += spinVel * dt;
@@ -449,7 +450,7 @@ namespace MahoragaWheel
             if (panelTex == null)
             {
                 int res = Mathf.Clamp(PanelRes.Value, 24, 256);
-                panelTex = new Texture2D(res, res, TextureFormat.RGBA32, false);   // still hard-edged pixels, just finer
+                panelTex = new Texture2D(res, res, TextureFormat.RGBA32, false);   // hard-edged pixels to match the game's art
                 panelTex.filterMode = FilterMode.Point;
                 panelTex.wrapMode = TextureWrapMode.Clamp;
             }
@@ -596,9 +597,8 @@ namespace MahoragaWheel
                     baseC = full ? new Color(1f, 0.55f, 0.15f) * pulse : new Color(0.9f, 0.93f, 0.98f);
                     shade = Sphere(p.tr);
                 }
-                baseC = GoldFor(p.kind);   // gold only: adaptation shows through the list, the spin and the chime, not through colour
+                baseC = GoldFor(p.kind);   // always plain gold; progress shows through the spin and the sound
                 Color c = baseC * shade;
-                // (no white flash and no pulse: the wheel never glows)
                 c.a = 1f;
                 p.mat.color = c;
             }

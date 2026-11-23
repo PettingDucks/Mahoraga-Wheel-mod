@@ -1,0 +1,5 @@
+# build output
+MahoragaWheel/out/
+
+# sounds dumped from the game for previewing (game assets, never commit)
+sound_preview/

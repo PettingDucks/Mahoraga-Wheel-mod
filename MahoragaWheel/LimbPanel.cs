@@ -117,14 +117,26 @@ namespace MahoragaWheel
                 }
                 n = 1;
             }
+            // most adapted first; types with the same turns keep a fixed order so rows don't jump around
+            order.Clear();
             for (int i = 0; i < Adaptation.Names.Length; i++)
             {
+                CatState s0 = Adaptation.Get(Adaptation.Names[i]);
+                bool on0 = s0.turns > 0 || s0.progress >= 0.5f;
+                rows[i].go.SetActive(on0);
+                if (on0) order.Add(i);
+            }
+            order.Sort(delegate(int a, int b)
+            {
+                int ta = Adaptation.Get(Adaptation.Names[a]).turns, tb = Adaptation.Get(Adaptation.Names[b]).turns;
+                return ta != tb ? tb.CompareTo(ta) : a.CompareTo(b);
+            });
+            for (int oi = 0; oi < order.Count; oi++)
+            {
+                int i = order[oi];
                 string name = Adaptation.Names[i];
                 CatState cs = Adaptation.Get(name);
                 Row r = rows[i];
-                bool on = cs.turns > 0 || cs.progress >= 0.5f;
-                r.go.SetActive(on);
-                if (!on) continue;
                 visible.Add(r);
                 int max = Mathf.Min(MaxPips, Adaptation.MaxTurns.Value);
                 float frac = cs.turns >= max ? 0f : Mathf.Clamp01(cs.progress / Mathf.Max(1f, Adaptation.SecondsPerTurn.Value));
@@ -142,6 +154,7 @@ namespace MahoragaWheel
         }
 
         private readonly System.Collections.Generic.List<Row> visible = new System.Collections.Generic.List<Row>();
+        private readonly System.Collections.Generic.List<int> order = new System.Collections.Generic.List<int>();
         private const float RowH = 22f, ColW = 168f, BottomGap = 100f;   // keep clear of the game's hotbar
 
         // Keep the strip on screen: flow rows into extra columns when there is not enough room below,

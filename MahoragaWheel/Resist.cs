@@ -222,6 +222,8 @@ namespace MahoragaWheel
             __state = new float[] { __instance.brainHealth, __instance.strokeAmount };
         }
 
+        public static float BrainDrainTime = -999f;   // last time the body's own ticks lowered brain health
+
         private static void BrainPost(Body __instance, float[] __state)
         {
             if (__state == null) return;
@@ -230,6 +232,9 @@ namespace MahoragaWheel
             float keep = 1f - br;
             if (__instance.brainHealth < __state[0])
             {
+                BrainDrainTime = Time.time;   // the body is starving the brain right now: Regen holds off its brain mending
+                // A tick that takes the brain to zero is death, as in the normal game: no refund can undo it.
+                if (__instance.brainHealth <= 0f) return;
                 float lost = __state[0] - __instance.brainHealth;
                 __instance.brainHealth = __state[0] - lost * keep;
                 Tracker.AddReduce("Brain.tick refund", 0f, lost * br);

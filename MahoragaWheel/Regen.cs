@@ -122,8 +122,9 @@ namespace MahoragaWheel
             float hearP = Sq(Mathf.Max(Adaptation.Resistance("Explosion"), Adaptation.Resistance("Energy")));
             if (hearP > 0f && b.hearingLoss > 0f) b.hearingLoss = Mathf.Max(0f, b.hearingLoss * (1f - 0.03f * hearP * k * dt));
 
-            // brain damage slowly mends
-            float brainP = Sq(Adaptation.Resistance("Brain"));
+            // brain damage slowly mends, but not while the body is still starving the brain (no blood, no oxygen):
+            // otherwise mending and the drain balance out just above zero and you can't die
+            float brainP = Time.time - Resist.BrainDrainTime < 1f ? 0f : Sq(Adaptation.Resistance("Brain"));
             if (brainP > 0f && b.brainHealth < 100f) b.brainHealth = Mathf.Min(100f, b.brainHealth + 0.02f * brainP * k * dt);
             if (brainP > 0f && b.strokeAmount > 0f) b.strokeAmount = Mathf.Max(0f, b.strokeAmount * (1f - 0.02f * brainP * k * dt));
 
